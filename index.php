@@ -3,7 +3,7 @@
 /*
 Plugin Name: WordPress: Auto Ancestor
 Description: Auto-select ancestor terms/categories on save and quick edit
-Version: 0.0.1
+Version: 0.0.2
 Author: We Are Indi
 Author URI: https://weareindi.co.uk
 */
@@ -18,6 +18,7 @@ if (!function_exists('is_plugin_active')) {
 // register app classes
 use WordPressAutoAncestor\Core\Plugin;
 use WordPressAutoAncestor\Core\Edit;
+use WordPressAutoAncestor\CLI\Command;
 
 // register WP plugin functions/tools
 require_once(ABSPATH . 'wp-admin/includes/plugin.php');
@@ -40,6 +41,7 @@ if (is_admin()) {
 // Is plugin active
 if (Plugin::active()) {
     // global plugin functions here...
+    Command::register();
 }
 
 // Is the plugin active and IN the admin area?
