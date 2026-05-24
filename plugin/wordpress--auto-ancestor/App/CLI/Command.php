@@ -65,7 +65,7 @@ class Command {
         WP_CLI::log('Updating Products');
 
         $total = Product::getTotal();
-        
+
         for ($index = 0; $index < $total; $index++) {
             self::progress($total, $index);
 
@@ -87,15 +87,20 @@ class Command {
      * @param [type] $index
      * @return void
      */
-    private static function progress($total, $index) {
+    public static function progress($total, $index) {
         $current = $index + 1;
+        $percent = floor(($current / $total) * 100);
 
-        $perc = floor(($current / $total) * 100);
-        $left = 100 - $perc;
-        $write = sprintf("\033[0G\033[2K[%'={$perc}s>%-{$left}s] - $perc%% - $current/$total", "", "");
-        fwrite(STDERR, $write);
+        $barLength = 100; // or use a shorter length like 50 for narrow terminals
+        $filled = (int) round(($barLength * $current) / $total);
+        $empty = $barLength - $filled;
 
-        if ($total == $current) {
+        $bar = str_repeat('=', $filled) . '>' . str_repeat(' ', $empty);
+        $line = sprintf("\033[0G\033[2K[%s] - %d%% - %d/%d", $bar, $percent, $current, $total);
+
+        fwrite(STDERR, $line);
+
+        if ($current >= $total) {
             fwrite(STDERR, PHP_EOL);
         }
     }

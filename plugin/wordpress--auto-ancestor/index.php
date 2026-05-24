@@ -1,12 +1,15 @@
 <?php
 
-/*
-Plugin Name: WordPress: Auto Ancestor
-Description: Auto-select ancestor terms/categories on save and quick edit
-Version: 0.0.2
-Author: We Are Indi
-Author URI: https://weareindi.co.uk
-*/
+/**
+ * Plugin Name: WP: Auto Ancestor
+ * Description: Auto-select ancestor terms/categories on save and quick edit
+ * Version: 1.0.0
+ * Author: Loz Archer (weareindi.co.uk)
+ * Author URI: https://www.weareindi.co.uk
+ * License: GPLv2 or later
+ * Requires PHP: 7.4
+ * Requires at least: 7.0
+ */
 
 // register autoloader
 require_once(__DIR__ . '/autoload.php');
@@ -46,11 +49,5 @@ if (Plugin::active()) {
 
 // Is the plugin active and IN the admin area?
 if (Plugin::active() && is_admin()) {
-    // admin functions here...
     Edit::Register();
-}
-
-// Is the plugin active and NOT IN the admin area?
-if (Plugin::active() && !is_admin()) {
-    // non-admin functons here...
 }
